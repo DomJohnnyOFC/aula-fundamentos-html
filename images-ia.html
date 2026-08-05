@@ -98,6 +98,7 @@
                 0 0 0 2px rgba(0, 255, 238, 0.15),
                 0 0 60px rgba(0, 255, 238, 0.08);
             transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
+            cursor: pointer;
         }
 
         .destaque-wrapper:hover {
@@ -145,6 +146,39 @@
             color: #0ff;
         }
 
+        /* Ícone de play no destaque */
+        .play-icon-destaque {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 80px;
+            height: 80px;
+            background: rgba(0, 255, 238, 0.2);
+            backdrop-filter: blur(12px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(0, 255, 238, 0.5);
+            opacity: 0;
+            transition: all 0.4s ease;
+            pointer-events: none;
+            box-shadow: 0 0 40px rgba(0, 255, 238, 0.2);
+        }
+
+        .destaque-wrapper:hover .play-icon-destaque {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-icon-destaque svg {
+            width: 35px;
+            height: 35px;
+            fill: #fff;
+            filter: drop-shadow(0 0 20px rgba(0, 255, 238, 0.5));
+        }
+
         /* ===== GALERIA (container das imagens pequenas) ===== */
         .galeria-container {
             position: relative;
@@ -181,6 +215,9 @@
             transition: all 0.4s cubic-bezier(0.23, 1, 0.32, 1);
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
             border: 2px solid rgba(255, 255, 255, 0.04);
+            cursor: pointer;
+            text-decoration: none;
+            display: block;
         }
 
         .img-card:hover {
@@ -246,6 +283,40 @@
             transform: translateY(0);
         }
 
+        /* ===== ÍCONE DE PLAY NOS CARDS ===== */
+        .play-icon {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 50px;
+            height: 50px;
+            background: rgba(0, 255, 238, 0.15);
+            backdrop-filter: blur(8px);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid rgba(0, 255, 238, 0.3);
+            opacity: 0;
+            transition: all 0.4s ease;
+            z-index: 2;
+            pointer-events: none;
+            box-shadow: 0 0 30px rgba(0, 255, 238, 0.1);
+        }
+
+        .img-card:hover .play-icon {
+            opacity: 1;
+            transform: translate(-50%, -50%) scale(1.1);
+        }
+
+        .play-icon svg {
+            width: 22px;
+            height: 22px;
+            fill: #fff;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 238, 0.3));
+        }
+
         /* ===== RODAPÉ ===== */
         .footer-gallery {
             position: relative;
@@ -266,6 +337,29 @@
             color: rgba(0, 255, 238, 0.3);
         }
 
+        /* ===== TOOLTIP CLIQUE ===== */
+        .click-hint {
+            position: absolute;
+            top: 10px;
+            right: 16px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(8px);
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.6rem;
+            color: rgba(255, 255, 255, 0.3);
+            letter-spacing: 0.05em;
+            border: 1px solid rgba(255, 255, 255, 0.04);
+            opacity: 0;
+            transition: opacity 0.4s ease;
+            pointer-events: none;
+            z-index: 2;
+        }
+
+        .img-card:hover .click-hint {
+            opacity: 1;
+        }
+
         /* ===== RESPONSIVIDADE ===== */
         @media (max-width: 768px) {
             .gallery-title {
@@ -280,6 +374,14 @@
                 bottom: 12px;
                 left: 16px;
             }
+            .play-icon-destaque {
+                width: 60px;
+                height: 60px;
+            }
+            .play-icon-destaque svg {
+                width: 28px;
+                height: 28px;
+            }
             .galeria-container {
                 padding: 1rem;
                 gap: 1rem;
@@ -291,6 +393,14 @@
             .img-pequena {
                 height: 160px;
             }
+            .play-icon {
+                width: 40px;
+                height: 40px;
+            }
+            .play-icon svg {
+                width: 18px;
+                height: 18px;
+            }
         }
 
         @media (max-width: 480px) {
@@ -299,6 +409,14 @@
             }
             .img-destaque {
                 height: 220px;
+            }
+            .play-icon-destaque {
+                width: 50px;
+                height: 50px;
+            }
+            .play-icon-destaque svg {
+                width: 22px;
+                height: 22px;
             }
             .galeria-container {
                 padding: 0.8rem;
@@ -317,6 +435,14 @@
                 bottom: 8px;
                 left: 10px;
             }
+            .play-icon {
+                width: 35px;
+                height: 35px;
+            }
+            .play-icon svg {
+                width: 15px;
+                height: 15px;
+            }
         }
     </style>
 </head>
@@ -325,11 +451,11 @@
     <!-- ===== TÍTULO ===== -->
     <h1 class="gallery-title">
         <span>✦ Galeria Animada</span>
-        <small>Desenhos • Personagens • Arte</small>
+        <small>Clique nas imagens • Assista aos vídeos</small>
     </h1>
 
     <!-- ===== IMAGEM DESTAQUE ===== -->
-    <div class="destaque-wrapper">
+    <a href="https://youtu.be/2upuBiEiXDk?si=o6gJMwdGv1JpOSA9" target="_blank" class="destaque-wrapper">
         <img 
             class="img-destaque" 
             src="Naruto.png" 
@@ -339,13 +465,18 @@
         <div class="destaque-badge">
             ⚡ <span>Destaque</span> • Naruto
         </div>
-    </div>
+        <div class="play-icon-destaque">
+            <svg viewBox="0 0 24 24">
+                <polygon points="5,3 19,12 5,21" />
+            </svg>
+        </div>
+    </a>
 
     <!-- ===== GALERIA DE IMAGENS ===== -->
     <div class="galeria-container">
         
-        <!-- Card 1 -->
-        <div class="img-card">
+        <!-- Card 1 - Spider Man -->
+        <a href="https://youtu.be/q0aaE6AxmFY?si=i99-FHHknqY2DcyR" target="_blank" class="img-card">
             <img 
                 class="img-pequena" 
                 src="Spider man.jpg" 
@@ -353,10 +484,16 @@
                 loading="lazy"
             >
             <span class="img-label">🕷️ Spider-Man</span>
-        </div>
+            <span class="click-hint">▶ Assistir</span>
+            <div class="play-icon">
+                <svg viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21" />
+                </svg>
+            </div>
+        </a>
 
-        <!-- Card 2 -->
-        <div class="img-card">
+        <!-- Card 2 - Kung Fu Panda -->
+        <a href="https://youtu.be/4MCOtam5pAg?si=ZmcK-yrdEJdWj2R5" target="_blank" class="img-card">
             <img 
                 class="img-pequena" 
                 src="Kung fu panda.jpg" 
@@ -364,10 +501,16 @@
                 loading="lazy"
             >
             <span class="img-label">🐼 Kung Fu Panda</span>
-        </div>
+            <span class="click-hint">▶ Assistir</span>
+            <div class="play-icon">
+                <svg viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21" />
+                </svg>
+            </div>
+        </a>
 
-        <!-- Card 3 -->
-        <div class="img-card">
+        <!-- Card 3 - Como Treinar o Dragão -->
+        <a href="https://youtu.be/kCqvWoeNaIg?si=jAnriYPWNvilvpLa" target="_blank" class="img-card">
             <img 
                 class="img-pequena" 
                 src="como-treinar-o-seu-dragao-3.jpg" 
@@ -375,13 +518,19 @@
                 loading="lazy"
             >
             <span class="img-label">🐉 Como Treinar o Dragão</span>
-        </div>
+            <span class="click-hint">▶ Assistir</span>
+            <div class="play-icon">
+                <svg viewBox="0 0 24 24">
+                    <polygon points="5,3 19,12 5,21" />
+                </svg>
+            </div>
+        </a>
 
     </div>
 
     <!-- ===== RODAPÉ ===== -->
     <div class="footer-gallery">
-        <span>✦</span> 2026 • 4K • Imersão visual <span>✦</span>
+        <span>✦</span> 2026 • Clique e assista aos vídeos • 4K <span>✦</span>
     </div>
 
 </body>
