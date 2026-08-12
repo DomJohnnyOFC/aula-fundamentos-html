@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <!-- ===== CONFIGURAÇÕES INICIAIS ===== -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- ===== SEO E METADADOS ===== -->
+    <meta name="description" content="Portfólio pessoal de Johnny - Estudante de desenvolvimento de sistemas">
+    <meta name="author" content="Johnny">
+    <meta name="robots" content="index, follow">
+    
+    <title>Johnny | Portfólio</title>
+
+    <!-- ===== FONTES DO GOOGLE ===== -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700;900&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+    <style>
+        /* ============================================
+           PASSO 1: RESET AVANÇADO
+           ============================================ */
+        *, *::before, *::after {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* ============================================
+           PASSO 2: VARIÁVEIS CSS (Tema Cyberpunk)
+           ============================================ */
+        :root {
+            /* Cores principais - Tema Cyberpunk/Neon */
+            --color-primary: #FF2D75;      /* Rosa neon */
+            --color-primary-dark: #CC0055;  /* Rosa escuro */
+            --color-secondary: #00F5FF;     /* Ciano neon */
+            --color-accent: #FFD700;        /* Dourado */
+            --color-dark: #0A0A1A;          /* Preto azulado */
+            --color-card-bg: #1A1A3E;       /* Roxo escuro para o card */
+            --color-card-bg-secondary: #2A1A4E; /* Roxo mais claro */
+            --color-text: #E0E0FF;          /* Branco azulado */
+            --color-text-secondary: #A0A0D0; /* Cinza azulado */
+            --color-gray: #8A8ABB;
+            
+            /* Espaçamentos */
+            --spacing-sm: 0.5rem;
+            --spacing-md: 1rem;
+            --spacing-lg: 2rem;
+            --spacing-xl: 4rem;
+            
+            /* Bordas */
+            --border-radius: 1.5rem;
+            --border-radius-full: 50%;
+            
+            /* Sombra - Efeito neon */
+            --shadow-card: 0 20px 60px rgba(255, 45, 117, 0.3);
+            --shadow-hover: 0 30px 80px rgba(0, 245, 255, 0.4);
+            --shadow-neon: 0 0 30px rgba(255, 45, 117, 0.2);
+            
+            /* Transições */
+            --transition-smooth: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            
+            /* Fontes */
+            --font-title: 'Orbitron', sans-serif;      /* Fonte futurista para títulos */
+            --font-body: 'Space Grotesk', sans-serif;  /* Fonte moderna para texto */
+        }
+
+        /* ============================================
+           PASSO 3: ESTILOS GLOBAIS
+           ============================================ */
+        body {
+            background: linear-gradient(135deg, 
+                #0A0A1A 0%,
+                #1A0033 30%,
+                #2D004D 60%,
+                #1A0033 100%
+            );
+            font-family: var(--font-body);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: var(--spacing-lg);
+            
+            /* Adiciona um padrão de fundo sutil */
+            background-image: 
+                radial-gradient(circle at 20% 50%, rgba(255, 45, 117, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 50%, rgba(0, 245, 255, 0.1) 0%, transparent 50%),
+                linear-gradient(135deg, #0A0A1A 0%, #1A0033 30%, #2D004D 60%, #1A0033 100%);
+            
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        /* ============================================
+           PASSO 4: CARD PRINCIPAL COM COR PERSONALIZADA
+           ============================================ */
+        .card {
+            background: linear-gradient(145deg, 
+                #1A1A3E 0%,
+                #2A1A4E 50%,
+                #1A1A3E 100%
+            );
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            
+            padding: var(--spacing-xl);
+            border-radius: var(--border-radius);
+            max-width: 800px;
+            width: 100%;
+            
+            /* Borda com efeito neon */
+            border: 2px solid rgba(255, 45, 117, 0.3);
+            box-shadow: 
+                var(--shadow-card),
+                inset 0 1px 0 rgba(255, 255, 255, 0.1),
+                0 0 40px rgba(255, 45, 117, 0.1);
+            
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+            transform: translateY(30px);
+            
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Efeito de brilho que se move no fundo do card */
+        .card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle at 50% 50%, 
+                rgba(255, 45, 117, 0.05) 0%,
+                transparent 60%
+            );
+            animation: shimmer 8s ease-in-out infinite;
+            pointer-events: none;
+        }
+
+        @keyframes shimmer {
+            0%, 100% { transform: translate(-30%, -30%) rotate(0deg); }
+            50% { transform: translate(30%, 30%) rotate(180deg); }
+        }
+
+        /* ============================================
+           PASSO 5: ANIMAÇÕES
+           ============================================ */
+        @keyframes fadeInUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        @keyframes glow {
+            0%, 100% { box-shadow: 0 0 20px rgba(255, 45, 117, 0.3); }
+            50% { box-shadow: 0 0 40px rgba(255, 45, 117, 0.6); }
+        }
+
+        /* ============================================
+           PASSO 6: TÍTULOS
+           ============================================ */
+        h1 {
+            font-family: var(--font-title);
+            font-size: 2.5rem;
+            font-weight: 900;
+            text-align: center;
+            margin-bottom: var(--spacing-md);
+            
+            /* Gradiente neon */
+            background: linear-gradient(135deg, 
+                #FF2D75 0%,
+                #FF6B9D 30%,
+                #00F5FF 70%,
+                #FF2D75 100%
+            );
+            background-size: 200% 200%;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: gradientMove 4s ease-in-out infinite;
+            
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 40px rgba(255, 45, 117, 0.3);
+        }
+
+        @keyframes gradientMove {
+            0%, 100% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+        }
+
+        h2 {
+            font-family: var(--font-title);
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--color-text);
+            margin-bottom: var(--spacing-md);
+            position: relative;
+            display: inline-block;
+            letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+
+        /* Linha decorativa neon abaixo dos títulos */
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: -8px;
+            left: 0;
+            width: 40px;
+            height: 3px;
+            background: linear-gradient(90deg, 
+                var(--color-primary), 
+                var(--color-secondary)
+            );
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 45, 117, 0.5);
+        }
+
+        /* ============================================
+           PASSO 7: TEXTO E PARÁGRAFOS
+           ============================================ */
+        p {
+            font-family: var(--font-body);
+            font-size: 1rem;
+            font-weight: 400;
+            line-height: 1.8;
+            color: var(--color-text-secondary);
+            text-align: center;
+            max-width: 600px;
+            margin: 0 auto var(--spacing-lg);
+            padding: 0 var(--spacing-sm);
+        }
+
+        /* ============================================
+           PASSO 8: FOTO DE PERFIL
+           ============================================ */
+        .foto {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: var(--border-radius-full);
+            
+            /* Borda gradiente neon */
+            border: 4px solid transparent;
+            background-image: linear-gradient(#1A1A3E, #1A1A3E),
+                              linear-gradient(135deg, 
+                                var(--color-primary), 
+                                var(--color-secondary),
+                                var(--color-accent)
+                              );
+            background-origin: padding-box, border-box;
+            background-clip: padding-box, border-box;
+            
+            display: block;
+            margin: 0 auto var(--spacing-lg);
+            
+            box-shadow: 0 8px 25px rgba(255, 45, 117, 0.3), 0 0 60px rgba(255, 45, 117, 0.1);
+            transition: var(--transition-smooth);
+            animation: glow 3s ease-in-out infinite;
+        }
+
+        .foto:hover {
+            transform: scale(1.05) rotate(-3deg) scale(1.05);
+            box-shadow: 0 12px 40px rgba(0, 245, 255, 0.5), 0 0 80px rgba(0, 245, 255, 0.2);
+            border-color: transparent;
+        }
+
+        /* ============================================
+           PASSO 9: LISTAS
+           ============================================ */
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+
+        li {
+            font-family: var(--font-body);
+            font-weight: 400;
+            padding: var(--spacing-sm) 0;
+            color: var(--color-text-secondary);
+            position: relative;
+            padding-left: var(--spacing-lg);
+            transition: var(--transition-smooth);
+        }
+
+        /* Ícones decorativos neon */
+        li::before {
+            content: '◆';
+            position: absolute;
+            left: 0;
+            color: var(--color-primary);
+            font-weight: 700;
+            transition: var(--transition-smooth);
+            text-shadow: 0 0 20px rgba(255, 45, 117, 0.5);
+        }
+
+        li:hover {
+            color: var(--color-text);
+            transform: translateX(8px);
+        }
+
+        li:hover::before {
+            color: var(--color-secondary);
+            transform: scale(1.3) rotate(90deg);
+            text-shadow: 0 0 30px rgba(0, 245, 255, 0.8);
+        }
+
+        /* ============================================
+           PASSO 10: CONTAINER DAS LISTAS
+           ============================================ */
+        .listas {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: var(--spacing-xl);
+            margin: var(--spacing-lg) 0;
+            padding: var(--spacing-md) 0;
+            
+            /* Bordas neon */
+            border-top: 2px solid rgba(255, 45, 117, 0.2);
+            border-bottom: 2px solid rgba(255, 45, 117, 0.2);
+            box-shadow: inset 0 0 30px rgba(255, 45, 117, 0.05);
+        }
+
+        .listas section {
+            text-align: left;
+        }
+
+        .listas section:last-child {
+            text-align: left;
+        }
+
+        /* ============================================
+           PASSO 11: ÍCONES SOCIAIS
+           ============================================ */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: var(--spacing-md);
+            margin-top: var(--spacing-lg);
+            padding-top: var(--spacing-lg);
+            border-top: 2px solid rgba(255, 45, 117, 0.2);
+        }
+
+        .social-links a {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            border-radius: var(--border-radius-full);
+            background: linear-gradient(135deg, 
+                var(--color-primary), 
+                var(--color-primary-dark)
+            );
+            transition: var(--transition-smooth);
+            text-decoration: none;
+            box-shadow: 0 4px 20px rgba(255, 45, 117, 0.3);
+            position: relative;
+        }
+
+        .social-links a::before {
+            content: '';
+            position: absolute;
+            inset: -3px;
+            border-radius: var(--border-radius-full);
+            background: linear-gradient(135deg, 
+                var(--color-primary), 
+                var(--color-secondary)
+            );
+            z-index: -1;
+            opacity: 0;
+            transition: var(--transition-smooth);
+        }
+
+        .social-links a:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 8px 40px rgba(0, 245, 255, 0.4);
+        }
+
+        .social-links a:hover::before {
+            opacity: 1;
+            filter: blur(10px);
+        }
+
+        .logos {
+            width: 28px;
+            height: 28px;
+            object-fit: contain;
+            filter: brightness(0) invert(1);
+            transition: var(--transition-smooth);
+        }
+
+        .social-links a:hover .logos {
+            transform: scale(1.1) rotate(5deg);
+        }
+
+        /* ============================================
+           PASSO 12: RESPONSIVO (Mobile)
+           ============================================ */
+        @media (max-width: 768px) {
+            .card {
+                padding: var(--spacing-lg);
+                margin: var(--spacing-md);
+                border-radius: var(--border-radius);
+            }
+
+            h1 {
+                font-size: 2rem;
+            }
+
+            .listas {
+                grid-template-columns: 1fr;
+                gap: var(--spacing-lg);
+                padding: var(--spacing-md) 0;
+            }
+
+            .listas section {
+                text-align: center;
+            }
+
+            .listas section:last-child {
+                text-align: center;
+            }
+
+            h2::after {
+                left: 50%;
+                transform: translateX(-50%);
+            }
+
+            li {
+                text-align: center;
+                padding-left: 0;
+            }
+
+            li::before {
+                display: none;
+            }
+
+            .foto {
+                width: 120px;
+                height: 120px;
+            }
+
+            .social-links a {
+                width: 50px;
+                height: 50px;
+            }
+
+            .logos {
+                width: 24px;
+                height: 24px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .card {
+                padding: var(--spacing-md);
+            }
+
+            h1 {
+                font-size: 1.5rem;
+                letter-spacing: 1px;
+            }
+
+            p {
+                font-size: 0.9rem;
+            }
+
+            .foto {
+                width: 100px;
+                height: 100px;
+            }
+
+            .social-links a {
+                width: 45px;
+                height: 45px;
+            }
+
+            .logos {
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        /* ============================================
+           PASSO 13: ACESSIBILIDADE
+           ============================================ */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid var(--color-secondary);
+            outline-offset: 3px;
+        }
+
+        /* ============================================
+           PASSO 14: REDUÇÃO DE MOVIMENTO
+           ============================================ */
+        @media (prefers-reduced-motion: reduce) {
+            .card {
+                animation: none;
+                opacity: 1;
+                transform: none;
+            }
+
+            .card::before {
+                animation: none;
+            }
+
+            h1 {
+                animation: none;
+            }
+
+            .foto {
+                animation: none;
+            }
+
+            .foto:hover {
+                transform: none;
+            }
+
+            .social-links a:hover {
+                transform: none;
+            }
+
+            li:hover {
+                transform: none;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- ============================================
+         CARD PRINCIPAL
+         ============================================ -->
+    <main class="card" role="main">
+        <!-- TÍTULO -->
+        <h1>Olá, sou o Johnny 👋</h1>
+
+        <!-- FOTO -->
+        <img 
+            class="foto" 
+            src="foto.png" 
+            alt="Foto de perfil de Johnny - Estudante de desenvolvimento de sistemas"
+            loading="lazy"
+        >
+
+        <!-- BIOGRAFIA -->
+        <p>
+            Tenho 16 anos, sou estudante de informática, inglês,
+            desenvolvimento de sistemas e quero estudar artes.
+            Gosto de jogar Fortnite, jogos estilo RPG e cultura japonesa.
+        </p>
+
+        <!-- LISTAS DE ESPECIALIDADES E HOBBIES -->
+        <div class="listas">
+            <section>
+                <h2>Minhas Especialidades</h2>
+                <ul>
+                    <li>Páginas web</li>
+                    <li>Desenvolvimento de software</li>
+                    <li>Design gráfico</li>
+                    <li>Desenvolvimento de jogos</li>
+                    <li>Desenvolvimento de aplicativos</li>
+                </ul>
+            </section>
+
+            <section>
+                <h2>Meus Hobbies</h2>
+                <ul>
+                    <li>Jogar video games</li>
+                    <li>Estudar artes</li>
+                    <li>Assistir a filmes e séries</li>
+                    <li>Ver vídeos</li>
+                    <li>Ouvir música</li>
+                </ul>
+            </section>
+        </div>
+
+        <!-- REDES SOCIAIS -->
+        <div class="social-links">
+            <a 
+                href="https://github.com/DomJohnnyOFC" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="GitHub - Perfil de Johnny"
+            >
+                <img 
+                    class="logos" 
+                    src="github.png" 
+                    alt="Ícone do GitHub"
+                    loading="lazy"
+                >
+            </a>
+
+            <a 
+                href="https://www.linkedin.com/in/domjohnnyofc/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                aria-label="LinkedIn - Perfil de Johnny"
+            >
+                <img 
+                    class="logos" 
+                    src="linkedin.png" 
+                    alt="Ícone do LinkedIn"
+                    loading="lazy"
+                >
+            </a>
+        </div>
+    </main>
+</body>
+</html>
